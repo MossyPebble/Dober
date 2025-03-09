@@ -1,0 +1,31 @@
+1:
+    dialogues:
+        - text: "돈 많고 잘생긴 남친 구함"
+          name: "나이스 네이처"
+          aa_name: "NiceNature"
+        - text: "??????????"
+          name: "나이스 네이처"
+          aa_name: "NiceNature"
+          delay: 5000
+
+2:
+    dialogues:
+        - text: "음? 넌 누구?"
+          name: "킹 헤일로"
+          aa_name: "KingHaloLookBack"
+        - text: "나는 킹 헤일로. 흠. 자기 소개는 필요 없으려나? 너도 날 스카우트하러 온 트레이너 중 하나지?"
+          name: "킹 헤일로"
+          aa_name: "KingHaloSide"
+          delay: 3000
+        - text: "그래! 내가 그 대단한 킹 헤일로라고!"
+          name: "킹 헤일로"
+          aa_name: "KingHaloDoya"
+          delay: 3000
+        - text: "에? 넌 스카우트를 위해 온게 아니라고?"
+          name: "킹 헤일로"
+          aa_name: "KingHaloConfused"
+          delay: 3000
+        - text: "그럼 넌 뭐하는 사람이야?"
+          name: "킹 헤일로"
+          aa_name: "KingHaloSide"
+          delay: 3000

@@ -1,0 +1,23 @@
+# 스테이지 별 숫자 규칙
+
+server1:
+    log:
+        log.txt: 101
+    node_modules:
+        asdsdf:
+            asdf: 102
+        asdf: 103
+    public:
+        index.html: 104
+        favicon.ico: 105
+
+server2:
+    log:
+        logasdf.txt: 201
+    node_modules:
+        asdasdfsdf:
+            asdf: 202
+        asdf: 203
+    public:
+        indexnot.html: 204
+        favicon.ico: 205

@@ -1,0 +1,41 @@
+.ExplorerContainer {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.Explorer {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.Explorer details > details {
+    padding-left: 20px; /* 들여쓰기 설정 */
+}
+
+.Explorer details > li {
+    padding-left: 20px; /* 들여쓰기 설정 */
+}
+
+/* 호버링 시 색 변경 */
+.Explorer li:hover {
+    background-color: #3a3a3a;
+    cursor: pointer; /* 포인터 커서로 변경 */
+}
+
+/* 부모 details 요소가 호버링될 때 자식 details 요소의 색 변경 방지 */
+.Explorer details:hover > summary {
+    background-color: #3a3a3a;
+    cursor: pointer; /* 포인터 커서로 변경 */
+}
+
+/* 자식 요소가 호버링될 때 부모 요소가 선택되지 않도록 설정 */
+.Explorer details:hover:not(:hover) {
+    background-color: transparent; /* 부모 요소의 배경색을 투명으로 설정 */
+}
+
+.Explorer details summary:hover {
+    background-color: #3a3a3a;
+    cursor: pointer; /* 포인터 커서로 변경 */
+}

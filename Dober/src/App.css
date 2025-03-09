@@ -1,0 +1,20 @@
+.Container {
+    display: flex;
+    width: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe WPC', 'Segoe UI', sans-serif;
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+}
+
+div {
+    box-sizing: border-box;
+}
+
+input {
+    box-sizing: border-box;
+}
