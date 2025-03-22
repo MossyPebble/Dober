@@ -41,6 +41,9 @@ mode가 있어야 하지 않겠나? 지금이 dialog인지, 유저가 플레이 
 - tab에서 자동완성
 - aa 모으기
 
+## 구현된 것
+- color command, command에 색 render, 이전 명령어 화살표로 가져오기, intro component
+
 ## 배포
 일단 생각하고 있는게 github page에 올리는거
 혹은 electron
