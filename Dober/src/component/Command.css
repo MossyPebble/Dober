@@ -1,0 +1,12 @@
+.command-text {
+    width: 100%;
+    writing-mode: horizontal-tb;
+    font-family: 'MS PGothic', sans-serif;
+    line-height: 1.1;
+    padding-left: 10px;
+}
+
+.command-text span {
+    writing-mode: horizontal-tb;
+    font-family: 'MS PGothic', sans-serif;
+}
