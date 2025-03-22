@@ -9,15 +9,6 @@ import { CommandRender } from './CommandRender.jsx'
 // CSS
 import './Command.css'
 
-// input의 기본 동작 방지를 위한 이벤트 리스너
-document.getElementsByTagName('input')[0].addEventListener('keydown', (e) => {
-
-    // 위아래 화살표 키를 눌렀을 때, 기본 동작을 방지합니다.
-    if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
-        e.preventDefault() // 위아래 화살표 기본동작 방지
-    }
-})
-
 function Command({ playMode, setPlayMode, textBoxInnerText, setTextBoxInnerText, currentCommand, setCurrentCommand, currentServer, fileHierarchy }) {
     const [path, setPath] = useState('')
     const [inputInnerText, setInputInnerText] = useState(path + '> ')
@@ -26,6 +17,9 @@ function Command({ playMode, setPlayMode, textBoxInnerText, setTextBoxInnerText,
     // 이전에 입력한 명령어를 저장하고, 화살표로 이동할 수 있도록 하는 기능을 위한 states
     const [previousCommand, setPreviousCommand] = useState([])
     const [previousCommandIndex, setPreviousCommandIndex] = useState(0)
+
+    // color를 변경하기 위한 state
+    const [color, setColor] = useState('')
 
     // input의 이벤트 핸들러
     const inputHandleKeyDown = (event) => {
@@ -44,7 +38,7 @@ function Command({ playMode, setPlayMode, textBoxInnerText, setTextBoxInnerText,
                 // App.jsx에 있는 state CurrentCommand를 업데이트
                 setCurrentCommand(inputInnerText.split(' '))
                 setInputInnerText(path + '> ')
-                commandSwitch(inputInnerText.split(' '), setTextBoxInnerText, fileHierarchy, path, setPath, currentServer)
+                commandSwitch(inputInnerText.split(' '), setTextBoxInnerText, fileHierarchy, path, setPath, currentServer, setColor)
             }
             if (inputInnerText.trim()) {
                 setInputInnerText(path + '> ')
@@ -53,22 +47,47 @@ function Command({ playMode, setPlayMode, textBoxInnerText, setTextBoxInnerText,
 
         // 위 화살표로 이전 명령어를 불러옴
         if (event.key === "ArrowUp") {
+            event.preventDefault()
             if (previousCommandIndex < previousCommand.length) {
                 setInputInnerText(previousCommand[previousCommand.length - 1 - previousCommandIndex])
                 setPreviousCommandIndex(previousCommandIndex + 1)
             }
-
-            console.log(previousCommand, previousCommandIndex)
         }
 
         // 아래 화살표로 다음 명령어를 불러옴
         if (event.key === "ArrowDown") {
+            event.preventDefault()
             if (previousCommandIndex > 0) {
                 setInputInnerText(previousCommand[previousCommand.length - previousCommandIndex])
                 setPreviousCommandIndex(previousCommandIndex - 1)
             }
+        }
 
-            console.log(previousCommand, previousCommandIndex)
+        // tab 키로 command 자동완성
+        if (event.key === "Tab") {
+            event.preventDefault() // 기본 동작 방지
+
+            // 입력한 명령어에 공백이 포함되어 cd asdf같이 이미 입력된 상태라면 아무것도 하지 않음
+            if (inputInnerText.split(' ').length > 2) {
+                return
+            }
+            
+            // commandList에서 입력한 명령어와 일치하는 것을 찾음
+            const command = inputInnerText.split(' ')[1]
+            const matchedCommands = commandList.filter((cmd) => cmd.startsWith(command))
+
+            // 만약 찾은 명령어가 1개 보다 많다면 그 목록을 textBoxInnerText에 추가
+            if (matchedCommands.length > 1) {
+                const commandListText = matchedCommands.join(', ')
+                setTextBoxInnerText((prevText) => [...prevText, `Possible commands: ${commandListText}`])
+            } 
+
+            // 만약 찾은 명령어가 1개라면 그 명령어를 inputInnerText에 추가
+            else if (matchedCommands.length === 1) {
+                const command = matchedCommands[0]
+                const newInput = inputInnerText.replace(/(\w+)$/, command)
+                setInputInnerText(newInput)
+            }
         }
     }
 
@@ -118,8 +137,13 @@ function Command({ playMode, setPlayMode, textBoxInnerText, setTextBoxInnerText,
     return (
         <div style={{ position: "relative", height: "98vh", width: "100%", backgroundColor: "#2d2d2d" }}>
             <div style={{ position: "absolute", bottom: "0", width: "100%", display: "flex", flexDirection: "column", height: "100%" }}>
-                <div ref={scrollRef} style={{ overflowX: 'hidden', overflowY: 'auto', height: '100%', display: "flex", flexDirection: "column" }}>
-                    <div style={{ flexGrow: 1, width: '100%', display: "flex", flexDirection: "column", justifyContent: "flex-end" }}>
+                <div
+                    ref={scrollRef} 
+                    style={{ overflowX: 'hidden', overflowY: 'auto', height: '100%', display: "flex", flexDirection: "column"}}
+                >
+                    <div 
+                        style={{ flexGrow: 1, width: '100%', display: "flex", flexDirection: "column", justifyContent: "flex-end", backgroundColor: color }}
+                    >
                         {CommandRender({ textBoxInnerText })}
                     </div>
                 </div>
